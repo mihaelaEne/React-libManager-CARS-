@@ -23,6 +23,14 @@ const method="PUT";
 const body=car;
  const response=await api("updateMasina", method, body);
 
+ console.log(response);
+
+
+ if(response.status==400){
+    let data = await response.json();
+    throw new Error(data.message)
+ }
+
  return response.json();
  
 }
@@ -34,8 +42,9 @@ export async function getMasinaById(id){
     return data.json();
 }
 
+
 export async function deleteCarr(carId) {
-    const response = await api(`delete?id=${carId}`, 'DELETE');
+    const response = await api(`delete/${carId}`, 'DELETE');
     return response.json();  
 
 }
